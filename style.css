@@ -202,19 +202,42 @@ body {
 
 #section-4 {
   overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
 
 /* TOPIC MENU */
 .topic-wrapper {
-  padding: 80px 40px 40px;
+  padding: 80px 40px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .topic-row {
+  width: 100%;
   display: flex;
   justify-content: center;
   gap: 40px;
-  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  #section-4 {
+    align-items: flex-start;
+  }
+
+  .topic-wrapper {
+    padding-top: 60px;
+  }
+
+  .topic-row {
+    flex-wrap: wrap;
+  }
 }
 
 .topic-item {
@@ -333,7 +356,8 @@ body {
 
 
 .media-player {
-  width: 760px;
+  width: 100%;
+  max-width: 760px;
   background: #ffeef3;
   border: 3px solid #7cc9c9;
   border-radius: 8px;
@@ -363,7 +387,8 @@ body {
 
 .media-video {
   width: 100%;
-  height: 420px; 
+  aspect-ratio: 16 / 9;
+  height: auto;
   background: #ffeef3;
 }
 
@@ -381,12 +406,14 @@ body {
 
 /* Audio */
 .audio-wrapper audio {
-  width: 420px;
+  width: 100%;
+  max-width: 420px;
 }
 
 .media-nav {
   position: relative;
-  width: 860px;              /* ikut membesar */
+  width: 100%;
+  max-width: 860px;      /* ikut membesar */
   padding: 90px 15px 120px;  /* ruang aman tombol */
   border: 2px dashed #ff69b4;
   border-radius: 24px;
@@ -434,17 +461,17 @@ body {
 }
 
 @media (max-width: 768px) {
-  .media-player {
-    width: 100%;
+  .media-title {
+    font-size: 24px;
   }
 
-  .media-video {
-    height: 220px;
+  .nav-box {
+    font-size: 12px;
+    padding: 8px 14px;
   }
 
-  .media-nav {
-    width: 95%;
-    padding: 60px 16px 100px;
+  .podcast-img {
+    width: 90%;
   }
 }
 
@@ -469,7 +496,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* SECTION 6 */
 /* ===============================
    SECTION 6 FIX
 ================================ */
@@ -487,6 +513,9 @@ body {
   width: 100%;
   max-width: 1100px;
   gap: 64px;
+  flex-direction: column;
+  text-align: center;
+  padding: 64px 24px;
 }
 
 /* KIRI */
@@ -566,4 +595,13 @@ body {
   margin-top: 24px;
   font-size: 13px;
   opacity: 0.6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img, video, audio {
+  max-width: 100%;
+  height: auto;
 }
