@@ -12,12 +12,29 @@ const sections = {
   section6: document.getElementById("section-6"),
 };
 
+const sectionOrder = [
+  sections.section1,
+  sections.section2,
+  sections.section3,
+  sections.section4,
+  sections.section5,
+  sections.section5Audio,
+  document.getElementById("section-5-audio2"),
+  document.getElementById("section-6"),
+];
+
+
 /* BUTTONS */
 const enterBtn = document.getElementById("enterStory");
 const storyBtn = document.querySelector(".story-btn");
 const documentBtn = document.querySelector(".documentation-btn");
 
 let movedFromLanding = false;
+let touchStartY = 0;
+let touchEndY = 0;
+
+const isMobile = window.innerWidth <= 768;
+
 
 /* ===============================
    HELPER FUNCTION
@@ -133,3 +150,55 @@ window.addEventListener("load", () => {
     activateSection(target);
   }
 });
+
+if (!isMobile) {
+  window.addEventListener("wheel", (e) => {
+    if (e.deltaY > 0 && sections.section1.classList.contains("active")) {
+      goToStory();
+    }
+  });
+}
+
+
+window.addEventListener("touchstart", (e) => {
+  touchStartY = e.changedTouches[0].screenY;
+});
+window.addEventListener("touchend", (e) => {
+  touchEndY = e.changedTouches[0].screenY;
+  handleSwipe();
+});
+function handleSwipe() {
+  const swipeDistance = touchStartY - touchEndY;
+
+  // swipe kecil = abaikan
+  if (Math.abs(swipeDistance) < 50) return;
+
+  // swipe ke atas
+  if (swipeDistance > 0) {
+    goNextSection();
+  }
+  // swipe ke bawah
+  else {
+    goPrevSection();
+  }
+}
+
+function getCurrentIndex() {
+  return sectionOrder.findIndex(sec =>
+    sec.classList.contains("active")
+  );
+}
+
+function goNextSection() {
+  const currentIndex = getCurrentIndex();
+  if (currentIndex < sectionOrder.length - 1) {
+    activateSection(sectionOrder[currentIndex + 1]);
+  }
+}
+
+function goPrevSection() {
+  const currentIndex = getCurrentIndex();
+  if (currentIndex > 0) {
+    activateSection(sectionOrder[currentIndex - 1]);
+  }
+}
